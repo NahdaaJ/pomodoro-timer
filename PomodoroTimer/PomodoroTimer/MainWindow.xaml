@@ -12,21 +12,62 @@
         Background="Transparent">
     <Border Background="#E6171717" CornerRadius="20">
         <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
             <StackPanel Orientation="Vertical" 
-                        HorizontalAlignment="Center" 
-                        VerticalAlignment="Top" 
+                        HorizontalAlignment="Center"
                         Margin="0,20,0,0"
-                        Width="220">
-                <TextBlock Text="Your future self is watching and thanking you." Style="{StaticResource QuoteTextStyle}"/>
+                        Width="220"
+                        Grid.Row="0">
+                <Border Height="40">
+                    <TextBlock Text="Quote" Style="{StaticResource QuoteTextStyle}"/>
+                </Border>
 
-                <TextBlock Text="15:49" Style="{StaticResource TimeTextStyle}"/>
+                <TextBlock Text="00:00" Style="{StaticResource TimeTextStyle}"/>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
-                    <Button x:Name="StartButton" Style="{StaticResource ControlButtons}"/>
-                    <Button x:Name="StopButton" Style="{StaticResource ControlButtons}"/>
+                    <Button x:Name="PauseButton" Style="{StaticResource ControlButtons}">
+                        <Image Source="/Assets/Icons/pause.png" Width="18"/>
+                    </Button>
+                    <Button x:Name="StopButton" Style="{StaticResource ControlButtons}">
+                        <Image Source="/Assets/Icons/stop.png" Width="22"/>
+                    </Button>
                 </StackPanel>
 
                 <Border Style="{StaticResource Divider}"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" 
+                        HorizontalAlignment="Center"
+                        Width="220"
+                        Grid.Row="1">
+                <TextBlock Text="Study Timers" Style="{StaticResource TimerHeaders}"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <Button x:Name="StudyButton15" Content="15:00" Style="{StaticResource TimerButtonStyle}"/>
+                    <Button x:Name="StudyButton20" Content="20:00" Style="{StaticResource TimerButtonStyle}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <Button x:Name="StudyButton25" Content="25:00" Style="{StaticResource TimerButtonStyle}"/>
+                    <Button x:Name="StudyButton50" Content="50:00" Style="{StaticResource TimerButtonStyle}"/>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" 
+                        HorizontalAlignment="Center"
+                        Width="220"
+                        Grid.Row="2">
+                <TextBlock Text="Break Timers" Style="{StaticResource TimerHeaders}"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <Button x:Name="BreakButton20" Content="5:00" Style="{StaticResource TimerButtonStyle}"/>
+                    <Button x:Name="BreakButton15" Content="10:00" Style="{StaticResource TimerButtonStyle}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <Button x:Name="BreakButton25" Content="30:00" Style="{StaticResource TimerButtonStyle}"/>
+                    <Button x:Name="BreakButton50" Content="1:00:00" Style="{StaticResource TimerButtonStyle}"/>
+                </StackPanel>
             </StackPanel>
         </Grid>
     </Border>

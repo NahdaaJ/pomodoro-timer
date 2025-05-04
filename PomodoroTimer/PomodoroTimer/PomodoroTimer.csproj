@@ -10,10 +10,19 @@
 
   <ItemGroup>
     <None Remove="Assets\Fonts\Afacad.ttf" />
+    <None Remove="Assets\Icons\pause.png" />
+    <None Remove="Assets\Icons\play.png" />
+    <None Remove="Assets\Icons\stop-button2.png" />
+    <None Remove="Assets\Icons\stop.png" />
+    <None Remove="Assets\Icons\tomato.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Assets\Fonts\Afacad.ttf" />
+    <Resource Include="Assets\Icons\pause.png" />
+    <Resource Include="Assets\Icons\play.png" />
+    <Resource Include="Assets\Icons\stop.png" />
+    <Resource Include="Assets\Icons\tomato.png" />
   </ItemGroup>
 
 </Project>
