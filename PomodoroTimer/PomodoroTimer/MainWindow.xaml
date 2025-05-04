@@ -23,7 +23,7 @@
                         Width="220"
                         Grid.Row="0">
                 <Border Height="40">
-                    <TextBlock Text="Quote" Style="{StaticResource QuoteTextStyle}"/>
+                    <TextBlock x:Name="QuoteBlock" Text="Let's Go!" Style="{StaticResource QuoteTextStyle}"/>
                 </Border>
 
                 <TextBlock Text="00:00" Style="{StaticResource TimeTextStyle}"/>
