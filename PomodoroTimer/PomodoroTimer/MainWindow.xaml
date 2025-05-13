@@ -46,12 +46,12 @@
                         Grid.Row="1">
                 <TextBlock Text="Study Timers" Style="{StaticResource TimerHeaders}"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
-                    <Button x:Name="StudyButton15" Content="15:00" Style="{StaticResource TimerButtonStyle}"/>
-                    <Button x:Name="StudyButton20" Content="20:00" Style="{StaticResource TimerButtonStyle}"/>
+                    <Button x:Name="StudyButton15" Content="15:00" Style="{StaticResource TimerButtonStyle}"  Click="StartStudyButton_Click" Tag="00:15:00"/>
+                    <Button x:Name="StudyButton20" Content="20:00" Style="{StaticResource TimerButtonStyle}"  Click="StartStudyButton_Click" Tag="00:20:00"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
-                    <Button x:Name="StudyButton25" Content="25:00" Style="{StaticResource TimerButtonStyle}"/>
-                    <Button x:Name="StudyButton50" Content="50:00" Style="{StaticResource TimerButtonStyle}"/>
+                    <Button x:Name="StudyButton25" Content="25:00" Style="{StaticResource TimerButtonStyle}"  Click="StartStudyButton_Click" Tag="00:25:00"/>
+                    <Button x:Name="StudyButton50" Content="50:00" Style="{StaticResource TimerButtonStyle}"  Click="StartStudyButton_Click" Tag="00:50:00"/>
                 </StackPanel>
             </StackPanel>
 

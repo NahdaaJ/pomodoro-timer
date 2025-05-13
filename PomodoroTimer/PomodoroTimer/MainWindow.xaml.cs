@@ -47,4 +47,30 @@ public partial class MainWindow : Window
         QuoteBlock.Text = QuoteProvider.GetStudyQuote();
 
     }
+
+    private void StartStudyButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is Button button && TimeSpan.TryParse(button.Tag?.ToString(), out var duration))
+        {
+            StartStudyTimer(duration);
+        }
+        else
+        {
+            MessageBox.Show("Invalid duration!");
+        }
+    }
+
+    private void StartStudyTimer(TimeSpan duration)
+    {
+        QuoteBlock.Text = "Starting Timer";
+
+        var timerService = new TimerService(new DispatcherTimer());
+
+        timerService.TimerFinished += () =>
+        {
+            QuoteBlock.Text = "Time's up! Take a break.";
+        };
+        
+        timerService.StartTimer(duration);
+    }
 }
