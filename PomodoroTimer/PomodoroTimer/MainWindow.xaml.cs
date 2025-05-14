@@ -15,6 +15,7 @@ public partial class MainWindow : Window
 {
     //private DispatcherTimer dispatchTimer;
     private TimerService? _activeTimerService;
+    private string _currentTimerType = string.Empty;
 
     public MainWindow()
     {
@@ -33,9 +34,10 @@ public partial class MainWindow : Window
     {
         if (sender is Button button && button.Tag is ButtonData buttonData)
         {
-            StopResetTimer();            
-            CreateNewTimer(buttonData.Duration, buttonData.Type);
-            
+            StopResetTimer();
+            _currentTimerType = buttonData.Type;
+            CreateNewTimer(buttonData.Duration);
+           
         }
         else
         {
@@ -62,15 +64,19 @@ public partial class MainWindow : Window
             if (_activeTimerService.isPaused == true)
             {
                 _activeTimerService.ResumeTimer();
+                QuoteBlock.Text = _currentTimerType == "Study"
+                    ? QuoteProvider.GetQuote(QuoteType.Study)
+                    : QuoteProvider.GetQuote(QuoteType.Break);
             }
             else
             {
                 _activeTimerService.PauseTimer();
+                QuoteBlock.Text = QuoteProvider.PauseTimer;
             }
         }
     }
 
-    private void CreateNewTimer(TimeSpan duration, string quoteType)
+    private void CreateNewTimer(TimeSpan duration)
     {
         _activeTimerService = new TimerService(new DispatcherTimer());
         _activeTimerService.TimerTick += UpdateTimerDisplayBlock;
@@ -78,19 +84,21 @@ public partial class MainWindow : Window
 
 
         // cannot use functions with parameters if i want to unsubscribe later
-        if (quoteType == "Study")
+        if (_currentTimerType == "Study")
         {
             UpdateStudyQuote();
             _activeTimerService.QuoteUpdate += UpdateStudyQuote;
-
         }
-        else if (quoteType == "Break")
+        else if (_currentTimerType == "Break")
         {
             UpdateBreakQuote();
             _activeTimerService.QuoteUpdate += UpdateBreakQuote;
-
         }
-        _activeTimerService.StartTimer(duration);
+        else
+        {
+            throw new ArgumentException($"Unsupported timer type: {_currentTimerType}");
+        }
+            _activeTimerService.StartTimer(duration);
     }
     private void UpdateStudyQuote()
     {

@@ -12,6 +12,8 @@ namespace PomodoroTimer.Services
         private static readonly string _defaultString = "Let's Go!";
         private static readonly string _timerFinishedString = "Time's up! Take a break.";
         private static readonly string _defaultTimer = "00:00:00";
+        private static readonly string _pauseTimer = "Timer Paused";
+
         private static readonly List<string> studyQuotes = new List<string>
         {
             "Progress, not perfection.",
@@ -66,6 +68,7 @@ namespace PomodoroTimer.Services
         public static string DefaultString => _defaultString;
         public static string TimerFinishedString => _timerFinishedString;
         public static string DefaultTimer => _defaultTimer;
+        public static string PauseTimer => _pauseTimer;
 
     }
 }
