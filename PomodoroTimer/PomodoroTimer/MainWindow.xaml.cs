@@ -1,5 +1,6 @@
 ﻿using PomodoroTimer.Models;
 using PomodoroTimer.Services;
+using System.Media;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -16,6 +17,7 @@ public partial class MainWindow : Window
     //private DispatcherTimer dispatchTimer;
     private TimerService? _activeTimerService;
     private string _currentTimerType = string.Empty;
+    private SoundPlayer _player;
 
     public MainWindow()
     {
@@ -28,6 +30,8 @@ public partial class MainWindow : Window
                 this.DragMove();
             }
         };
+
+        _player = new SoundPlayer("./Assets/Sounds/sound1.wav");
     }
 
     private void StartTimerClick(object sender, RoutedEventArgs e)
@@ -124,6 +128,7 @@ public partial class MainWindow : Window
             _activeTimerService.QuoteUpdate -= UpdateBreakQuote;
             TimerDisplayBlock.Text = QuoteProvider.DefaultTimer;
             QuoteBlock.Text = QuoteProvider.DefaultString;
+            _player.Stop();
         }
     }
 
@@ -136,6 +141,7 @@ public partial class MainWindow : Window
     {
         QuoteBlock.Text = QuoteProvider.TimerFinishedString;
         TimerDisplayBlock.Text = QuoteProvider.DefaultTimer;
+        _player.Play();
     }
 
 }

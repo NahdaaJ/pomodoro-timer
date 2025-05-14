@@ -15,6 +15,13 @@
     <None Remove="Assets\Icons\stop-button2.png" />
     <None Remove="Assets\Icons\stop.png" />
     <None Remove="Assets\Icons\tomato.png" />
+    <None Remove="Assets\Sounds\sound1.wav" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\Sounds\sound1.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
