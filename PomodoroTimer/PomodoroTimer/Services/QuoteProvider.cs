@@ -30,12 +30,33 @@ namespace PomodoroTimer.Services
             "Small steps are better than no steps.",
             "Keep going, because you did not come this far just to come this far.",
         };
+
+        private static readonly List<string> breakQuotes = new List<string>
+        {
+            "Test1",
+            "Test2",
+            "Test3",
+            "Test4",
+            "Test5",
+            "Test6",
+        };
+
         private static readonly Random random = new Random();
 
-        public static string GetStudyQuote()
+        public enum QuoteType
         {
-            int index = random.Next(studyQuotes.Count);
-            return studyQuotes[index];
+            Study,
+            Break
+        }
+
+        public static string GetQuote(QuoteType quoteType)
+        {
+            return quoteType switch
+            {
+                QuoteType.Study => studyQuotes[random.Next(studyQuotes.Count)],
+                QuoteType.Break => breakQuotes[random.Next(breakQuotes.Count)],
+                _ => string.Empty
+            };
         }
 
     }

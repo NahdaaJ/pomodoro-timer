@@ -6,11 +6,13 @@ namespace PomodoroTimer.Services
     {
         private DispatcherTimer _timer; // ticks every second
         private TimeSpan _remaining; // keeps track of how much time is left
+        public bool isPaused = false; // keeps track of whether the timer is paused
+        private int _secondsSinceLastQuote = 0; // keeps track of how many seconds have passed since the last quote update
 
         public event Action? TimerFinished; // runs when timer ends
         public event Action<TimeSpan>? TimerTick; // runs every second to update the remaining time
+        public event Action? QuoteUpdate; // runs every 5 minutes to update the quote
 
-        public bool isPaused = false; // keeps track of whether the timer is paused
 
         public TimerService(DispatcherTimer timer)
         {
@@ -31,6 +33,7 @@ namespace PomodoroTimer.Services
         private void Timer_Tick(object? sender, EventArgs e)
         {
             _remaining = _remaining.Subtract(TimeSpan.FromSeconds(1));
+            _secondsSinceLastQuote++;
 
             if (_remaining <= TimeSpan.Zero)
             {
@@ -40,6 +43,12 @@ namespace PomodoroTimer.Services
             else
             {
                 TimerTick?.Invoke(_remaining); // Notify remaining time
+            }
+
+            if (_secondsSinceLastQuote >= 300)
+            {
+                QuoteUpdate?.Invoke(); // Notify to update quote
+                _secondsSinceLastQuote = 0; // Reset the counter
             }
         }
         

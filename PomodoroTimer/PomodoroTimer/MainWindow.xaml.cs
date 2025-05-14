@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
+using static PomodoroTimer.Services.QuoteProvider;
 
 namespace PomodoroTimer;
 
@@ -13,7 +14,7 @@ namespace PomodoroTimer;
 public partial class MainWindow : Window
 {
     //private DispatcherTimer dispatchTimer;
-    private TimerService _activeTimerService;
+    private TimerService? _activeTimerService;
 
     public MainWindow()
     {
@@ -26,20 +27,6 @@ public partial class MainWindow : Window
                 this.DragMove();
             }
         };
-
-
-        //dispatchTimer = new DispatcherTimer();
-        //dispatchTimer.Interval = TimeSpan.FromMinutes(5);
-        //dispatchTimer.Tick += UpdateQuote;
-
-
-        //dispatchTimer.Start();
-    }
-
-    private void UpdateQuote(object sender, EventArgs e)
-    {
-        QuoteBlock.Text = QuoteProvider.GetStudyQuote();
-
     }
 
     private void StartTimerClick(object sender, RoutedEventArgs e)
@@ -50,7 +37,7 @@ public partial class MainWindow : Window
 
             QuoteBlock.Text = $"Starting {buttonData.Type} Timer for {buttonData.Duration.ToString()}";
             
-            CreateNewTimer(buttonData.Duration);
+            CreateNewTimer(buttonData.Duration, buttonData.Type);
             
         }
         else
@@ -86,12 +73,34 @@ public partial class MainWindow : Window
         }
     }
 
-    private void CreateNewTimer(TimeSpan duration)
+    private void CreateNewTimer(TimeSpan duration, string quoteType)
     {
         _activeTimerService = new TimerService(new DispatcherTimer());
         _activeTimerService.TimerTick += UpdateTimerDisplayBlock;
         _activeTimerService.TimerFinished += TimerFinished;
+
+
+        // cannot use functions with parameters if i want to unsubscribe later
+        if (quoteType == "Study")
+        {
+            _activeTimerService.QuoteUpdate += UpdateStudyQuote;
+
+        }
+        else if (quoteType == "Break")
+        {
+            _activeTimerService.QuoteUpdate += UpdateBreakQuote;
+
+        }
         _activeTimerService.StartTimer(duration);
+    }
+    private void UpdateStudyQuote()
+    {
+        QuoteBlock.Text = QuoteProvider.GetQuote(QuoteType.Study);
+    }
+
+    private void UpdateBreakQuote()
+    {
+        QuoteBlock.Text = QuoteProvider.GetQuote(QuoteType.Break);
     }
 
     private void StopResetTimer()
@@ -101,6 +110,8 @@ public partial class MainWindow : Window
             _activeTimerService.StopTimer();
             _activeTimerService.TimerTick -= UpdateTimerDisplayBlock;
             _activeTimerService.TimerFinished -= TimerFinished;
+            _activeTimerService.QuoteUpdate -= UpdateStudyQuote;
+            _activeTimerService.QuoteUpdate -= UpdateBreakQuote;
             TimerDisplayBlock.Text = "00:00";
             QuoteBlock.Text = "Let's Go!";
         }
