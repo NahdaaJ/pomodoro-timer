@@ -4,6 +4,7 @@ using System.Media;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using static PomodoroTimer.Services.QuoteProvider;
 
@@ -71,11 +72,13 @@ public partial class MainWindow : Window
                 QuoteBlock.Text = _currentTimerType == "Study"
                     ? QuoteProvider.GetQuote(QuoteType.Study)
                     : QuoteProvider.GetQuote(QuoteType.Break);
+                PauseButtonImage.Source = new BitmapImage(new Uri("/Assets/Icons/pause.png", UriKind.Relative));
             }
             else
             {
                 _activeTimerService.PauseTimer();
                 QuoteBlock.Text = QuoteProvider.PauseTimer;
+                PauseButtonImage.Source = new BitmapImage(new Uri("/Assets/Icons/play.png", UriKind.Relative));
             }
         }
     }
