@@ -21,6 +21,7 @@ namespace PomodoroTimer;
 public partial class MainWindow : Window
 {
     //private DispatcherTimer dispatchTimer;
+    private TimerService _activeTimerService;
 
     public MainWindow()
     {
@@ -53,18 +54,48 @@ public partial class MainWindow : Window
     {
         if (sender is Button button && button.Tag is ButtonData buttonData)
         {
+            StopResetTimer(); // Stop any existing timer
+
             QuoteBlock.Text = $"Starting {buttonData.Type} Timer for {buttonData.Duration.ToString()}";
-            var duration = buttonData.Duration;
-            var timerService = new TimerService(new DispatcherTimer());
-            timerService.TimerFinished += () =>
-            {
-                QuoteBlock.Text = "Time's up! Take a break.";
-            };
-            timerService.StartTimer(duration);
+            
+            CreateNewTimer(buttonData.Duration);
+            
         }
         else
         {
             MessageBox.Show("Incorrect button data.");
         }
     }
+
+    private void CreateNewTimer(TimeSpan duration)
+    {
+        _activeTimerService = new TimerService(new DispatcherTimer());
+        _activeTimerService.TimerTick += UpdateTimerDisplayBlock;
+        _activeTimerService.TimerFinished += TimerFinished;
+        _activeTimerService.StartTimer(duration);
+    }
+
+    private void StopResetTimer()
+    {
+        if (_activeTimerService != null)
+        {
+            _activeTimerService.StopTimer();
+            _activeTimerService.TimerTick -= UpdateTimerDisplayBlock;
+            _activeTimerService.TimerFinished -= TimerFinished;
+            TimerDisplayBlock.Text = "00:00";
+            QuoteBlock.Text = "Let's Go!";
+        }
+    }
+
+    private void UpdateTimerDisplayBlock(TimeSpan remaining)
+    {
+        TimerDisplayBlock.Text = remaining.ToString(@"mm\:ss");
+    }
+
+    private void TimerFinished()
+    {
+        QuoteBlock.Text = "Time's up! Take a break.";
+        TimerDisplayBlock.Text = "00:00";
+    }
+
 }

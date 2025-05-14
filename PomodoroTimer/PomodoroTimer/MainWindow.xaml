@@ -26,7 +26,7 @@
                     <TextBlock x:Name="QuoteBlock" Text="Let's Go!" Style="{StaticResource QuoteTextStyle}"/>
                 </Border>
 
-                <TextBlock Text="00:00" Style="{StaticResource TimeTextStyle}"/>
+                <TextBlock x:Name="TimerDisplayBlock" Text="00:00" Style="{StaticResource TimeTextStyle}"/>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
                     <Button x:Name="PauseButton" Style="{StaticResource ControlButtons}">
