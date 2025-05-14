@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PomodoroTimer"
+        xmlns:local="clr-namespace:PomodoroTimer" xmlns:local1="clr-namespace:PomodoroTimer.Models"
         mc:Ignorable="d"
         Title="Pomodoro Timer" 
         Height="500" Width="250"
@@ -46,12 +46,32 @@
                         Grid.Row="1">
                 <TextBlock Text="Study Timers" Style="{StaticResource TimerHeaders}"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
-                    <Button x:Name="StudyButton15" Content="15:00" Style="{StaticResource TimerButtonStyle}"  Click="StartStudyButton_Click" Tag="00:15:00"/>
-                    <Button x:Name="StudyButton20" Content="20:00" Style="{StaticResource TimerButtonStyle}"  Click="StartStudyButton_Click" Tag="00:20:00"/>
+                    <Button Content="15:00" Style="{StaticResource TimerButtonStyle}"
+                            Click="StartTimer">
+                        <Button.Tag>
+                            <local1:ButtonData Duration="00:15:00" Type="Study"/>
+                        </Button.Tag>
+                    </Button>
+                    <Button Content="20:00" Style="{StaticResource TimerButtonStyle}"
+                            Click="StartTimer">
+                        <Button.Tag>
+                            <local1:ButtonData Duration="00:20:00" Type="Study"/>
+                        </Button.Tag>
+                    </Button>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
-                    <Button x:Name="StudyButton25" Content="25:00" Style="{StaticResource TimerButtonStyle}"  Click="StartStudyButton_Click" Tag="00:25:00"/>
-                    <Button x:Name="StudyButton50" Content="50:00" Style="{StaticResource TimerButtonStyle}"  Click="StartStudyButton_Click" Tag="00:50:00"/>
+                    <Button Content="25:00" Style="{StaticResource TimerButtonStyle}"
+                            Click="StartTimer">
+                        <Button.Tag>
+                            <local1:ButtonData Duration="00:25:00" Type="Study"/>
+                        </Button.Tag>
+                    </Button>
+                    <Button Content="50:00" Style="{StaticResource TimerButtonStyle}"
+                        Click="StartTimer">
+                        <Button.Tag>
+                            <local1:ButtonData Duration="00:50:00" Type="Study"/>
+                        </Button.Tag>
+                    </Button>
                 </StackPanel>
             </StackPanel>
 
@@ -61,12 +81,32 @@
                         Grid.Row="2">
                 <TextBlock Text="Break Timers" Style="{StaticResource TimerHeaders}"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
-                    <Button x:Name="BreakButton20" Content="5:00" Style="{StaticResource TimerButtonStyle}"/>
-                    <Button x:Name="BreakButton15" Content="10:00" Style="{StaticResource TimerButtonStyle}"/>
+                    <Button Content="05:00" Style="{StaticResource TimerButtonStyle}"
+                        Click="StartTimer">
+                        <Button.Tag>
+                            <local1:ButtonData Duration="00:05:00" Type="Break"/>
+                        </Button.Tag>
+                    </Button>
+                    <Button Content="10:00" Style="{StaticResource TimerButtonStyle}"
+                        Click="StartTimer">
+                        <Button.Tag>
+                            <local1:ButtonData Duration="00:10:00" Type="Break"/>
+                        </Button.Tag>
+                    </Button>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
-                    <Button x:Name="BreakButton25" Content="30:00" Style="{StaticResource TimerButtonStyle}"/>
-                    <Button x:Name="BreakButton50" Content="1:00:00" Style="{StaticResource TimerButtonStyle}"/>
+                    <Button Content="30:00" Style="{StaticResource TimerButtonStyle}"
+                        Click="StartTimer">
+                        <Button.Tag>
+                            <local1:ButtonData Duration="00:30:00" Type="Break"/>
+                        </Button.Tag>
+                    </Button>
+                    <Button Content="1:00:00" Style="{StaticResource TimerButtonStyle}"
+                        Click="StartTimer">
+                        <Button.Tag>
+                            <local1:ButtonData Duration="01:00:00" Type="Break"/>
+                        </Button.Tag>
+                    </Button>
                 </StackPanel>
             </StackPanel>
         </Grid>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualBasic;
+using PomodoroTimer.Models;
 using PomodoroTimer.Services;
 using System.Text;
 using System.Windows;
@@ -19,7 +20,7 @@ namespace PomodoroTimer;
 /// </summary>
 public partial class MainWindow : Window
 {
-    private DispatcherTimer dispatchTimer;
+    //private DispatcherTimer dispatchTimer;
 
     public MainWindow()
     {
@@ -34,12 +35,12 @@ public partial class MainWindow : Window
         };
 
 
-        dispatchTimer = new DispatcherTimer();
-        dispatchTimer.Interval = TimeSpan.FromMinutes(5);
-        dispatchTimer.Tick += UpdateQuote;
+        //dispatchTimer = new DispatcherTimer();
+        //dispatchTimer.Interval = TimeSpan.FromMinutes(5);
+        //dispatchTimer.Tick += UpdateQuote;
 
 
-        dispatchTimer.Start();
+        //dispatchTimer.Start();
     }
 
     private void UpdateQuote(object sender, EventArgs e)
@@ -48,29 +49,22 @@ public partial class MainWindow : Window
 
     }
 
-    private void StartStudyButton_Click(object sender, RoutedEventArgs e)
+    private void StartTimer(object sender, RoutedEventArgs e)
     {
-        if (sender is Button button && TimeSpan.TryParse(button.Tag?.ToString(), out var duration))
+        if (sender is Button button && button.Tag is ButtonData buttonData)
         {
-            StartStudyTimer(duration);
+            QuoteBlock.Text = $"Starting {buttonData.Type} Timer for {buttonData.Duration.ToString()}";
+            var duration = buttonData.Duration;
+            var timerService = new TimerService(new DispatcherTimer());
+            timerService.TimerFinished += () =>
+            {
+                QuoteBlock.Text = "Time's up! Take a break.";
+            };
+            timerService.StartTimer(duration);
         }
         else
         {
-            MessageBox.Show("Invalid duration!");
+            MessageBox.Show("Incorrect button data.");
         }
-    }
-
-    private void StartStudyTimer(TimeSpan duration)
-    {
-        QuoteBlock.Text = "Starting Timer";
-
-        var timerService = new TimerService(new DispatcherTimer());
-
-        timerService.TimerFinished += () =>
-        {
-            QuoteBlock.Text = "Time's up! Take a break.";
-        };
-        
-        timerService.StartTimer(duration);
     }
 }
