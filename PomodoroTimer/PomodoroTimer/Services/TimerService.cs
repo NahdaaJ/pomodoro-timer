@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Threading;
+﻿using System.Windows.Threading;
 
 namespace PomodoroTimer.Services
 {
@@ -14,6 +9,8 @@ namespace PomodoroTimer.Services
 
         public event Action? TimerFinished; // runs when timer ends
         public event Action<TimeSpan>? TimerTick; // runs every second to update the remaining time
+
+        public bool isPaused = false; // keeps track of whether the timer is paused
 
         public TimerService(DispatcherTimer timer)
         {
@@ -50,6 +47,19 @@ namespace PomodoroTimer.Services
         {
             _timer.Stop();
             _remaining = TimeSpan.Zero;
+        }
+
+        public void PauseTimer()
+        {
+            _timer.Stop();
+            isPaused = true;
+        }
+
+        public void ResumeTimer()
+        {
+            _timer.Start();
+            TimerTick?.Invoke(_remaining);
+            isPaused = false;
         }
 
     }

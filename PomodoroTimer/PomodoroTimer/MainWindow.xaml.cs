@@ -1,16 +1,8 @@
-﻿using Microsoft.VisualBasic;
-using PomodoroTimer.Models;
+﻿using PomodoroTimer.Models;
 using PomodoroTimer.Services;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace PomodoroTimer;
@@ -50,7 +42,7 @@ public partial class MainWindow : Window
 
     }
 
-    private void StartTimer(object sender, RoutedEventArgs e)
+    private void StartTimerClick(object sender, RoutedEventArgs e)
     {
         if (sender is Button button && button.Tag is ButtonData buttonData)
         {
@@ -63,7 +55,34 @@ public partial class MainWindow : Window
         }
         else
         {
-            MessageBox.Show("Incorrect button data.");
+            MessageBox.Show("Incorrect timer button data.");
+        }
+    }
+
+    private void StopTimerClick(object sender, RoutedEventArgs e)
+    {
+        if (sender is Button button && button.Name == "StopButton")
+        {
+            StopResetTimer();
+        }
+        else
+        {
+            MessageBox.Show("Incorrect stop button data.");
+        }
+    }
+
+    private void PausePlayTimerClick(object sender, RoutedEventArgs e)
+    {
+        if (sender is Button button && button.Name == "PauseButton" && _activeTimerService != null)
+        {
+            if (_activeTimerService.isPaused == true)
+            {
+                _activeTimerService.ResumeTimer();
+            }
+            else
+            {
+                _activeTimerService.PauseTimer();
+            }
         }
     }
 
