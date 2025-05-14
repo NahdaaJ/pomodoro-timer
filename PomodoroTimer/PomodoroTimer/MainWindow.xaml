@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PomodoroTimer" xmlns:local1="clr-namespace:PomodoroTimer.Models"
         mc:Ignorable="d"
+        Icon="/Assets/Icons/tomato.ico"
         Title="Pomodoro Timer" 
         Height="450" Width="250"
         WindowStyle="None"

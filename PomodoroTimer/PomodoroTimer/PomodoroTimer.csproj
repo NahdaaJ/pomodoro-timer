@@ -14,7 +14,7 @@
     <None Remove="Assets\Icons\play.png" />
     <None Remove="Assets\Icons\stop-button2.png" />
     <None Remove="Assets\Icons\stop.png" />
-    <None Remove="Assets\Icons\tomato.png" />
+    <None Remove="Assets\Icons\tomato.ico" />
     <None Remove="Assets\Sounds\sound1.wav" />
   </ItemGroup>
 
@@ -29,7 +29,7 @@
     <Resource Include="Assets\Icons\pause.png" />
     <Resource Include="Assets\Icons\play.png" />
     <Resource Include="Assets\Icons\stop.png" />
-    <Resource Include="Assets\Icons\tomato.png" />
+    <Resource Include="Assets\Icons\tomato.ico" />
   </ItemGroup>
 
 </Project>
