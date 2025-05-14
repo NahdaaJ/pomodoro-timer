@@ -33,10 +33,7 @@ public partial class MainWindow : Window
     {
         if (sender is Button button && button.Tag is ButtonData buttonData)
         {
-            StopResetTimer(); // Stop any existing timer
-
-            QuoteBlock.Text = $"Starting {buttonData.Type} Timer for {buttonData.Duration.ToString()}";
-            
+            StopResetTimer();            
             CreateNewTimer(buttonData.Duration, buttonData.Type);
             
         }
@@ -83,11 +80,13 @@ public partial class MainWindow : Window
         // cannot use functions with parameters if i want to unsubscribe later
         if (quoteType == "Study")
         {
+            UpdateStudyQuote();
             _activeTimerService.QuoteUpdate += UpdateStudyQuote;
 
         }
         else if (quoteType == "Break")
         {
+            UpdateBreakQuote();
             _activeTimerService.QuoteUpdate += UpdateBreakQuote;
 
         }
@@ -112,20 +111,20 @@ public partial class MainWindow : Window
             _activeTimerService.TimerFinished -= TimerFinished;
             _activeTimerService.QuoteUpdate -= UpdateStudyQuote;
             _activeTimerService.QuoteUpdate -= UpdateBreakQuote;
-            TimerDisplayBlock.Text = "00:00";
-            QuoteBlock.Text = "Let's Go!";
+            TimerDisplayBlock.Text = QuoteProvider.DefaultTimer;
+            QuoteBlock.Text = QuoteProvider.DefaultString;
         }
     }
 
     private void UpdateTimerDisplayBlock(TimeSpan remaining)
     {
-        TimerDisplayBlock.Text = remaining.ToString(@"mm\:ss");
+        TimerDisplayBlock.Text = remaining.ToString(@"hh\:mm\:ss");
     }
 
     private void TimerFinished()
     {
-        QuoteBlock.Text = "Time's up! Take a break.";
-        TimerDisplayBlock.Text = "00:00";
+        QuoteBlock.Text = QuoteProvider.TimerFinishedString;
+        TimerDisplayBlock.Text = QuoteProvider.DefaultTimer;
     }
 
 }

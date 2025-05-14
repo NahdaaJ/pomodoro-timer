@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PomodoroTimer" xmlns:local1="clr-namespace:PomodoroTimer.Models"
         mc:Ignorable="d"
         Title="Pomodoro Timer" 
-        Height="500" Width="250"
+        Height="450" Width="250"
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent">
@@ -26,7 +26,7 @@
                     <TextBlock x:Name="QuoteBlock" Text="Let's Go!" Style="{StaticResource QuoteTextStyle}"/>
                 </Border>
 
-                <TextBlock x:Name="TimerDisplayBlock" Text="00:00" Style="{StaticResource TimeTextStyle}"/>
+                <TextBlock x:Name="TimerDisplayBlock" Text="00:00:00" Style="{StaticResource TimeTextStyle}"/>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
                     <Button x:Name="PauseButton" Style="{StaticResource ControlButtons}" Click="PausePlayTimerClick">
