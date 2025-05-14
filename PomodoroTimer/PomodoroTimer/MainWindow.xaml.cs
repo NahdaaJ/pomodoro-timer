@@ -88,11 +88,14 @@ public partial class MainWindow : Window
         {
             UpdateStudyQuote();
             _activeTimerService.QuoteUpdate += UpdateStudyQuote;
+            TimerDisplayBlock.Opacity = 1;
+
         }
         else if (_currentTimerType == "Break")
         {
             UpdateBreakQuote();
             _activeTimerService.QuoteUpdate += UpdateBreakQuote;
+            TimerDisplayBlock.Opacity = 0.3;
         }
         else
         {
