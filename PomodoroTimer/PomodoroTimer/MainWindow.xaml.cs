@@ -147,4 +147,8 @@ public partial class MainWindow : Window
         _player.Play();
     }
 
+    private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+    {
+
+    }
 }

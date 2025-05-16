@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Icon="/Assets/Icons/tomato.ico"
         Title="Pomodoro Timer" 
-        Height="450" Width="250"
+        Height="500" Width="250"
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent">
@@ -17,6 +17,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
             <StackPanel Orientation="Vertical" 
                         HorizontalAlignment="Center"
@@ -109,6 +110,18 @@
                         </Button.Tag>
                     </Button>
                 </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" 
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top"
+                        Grid.Row="3">
+                <Button Style="{StaticResource VolumeButton}">
+                    <Image Source="/Assets/Icons/volume-down.png" />
+                </Button>
+                <Slider Style="{StaticResource CustomSlider}" ValueChanged="Slider_ValueChanged"/>
+                <Button Style="{StaticResource VolumeButton}">
+                    <Image Source="/Assets/Icons/volume-up.png" />
+                </Button>
             </StackPanel>
         </Grid>
     </Border>

@@ -48,11 +48,11 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.9"/>
+                            <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.8"/>
                         </Trigger>
 
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.8"/>
+                            <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.6"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -99,11 +99,11 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.9"/>
+                            <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.8"/>
                         </Trigger>
 
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.8"/>
+                            <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.6"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -117,6 +117,91 @@
 
     <Style x:Key="BreakTimerButton" TargetType="Button" BasedOn="{StaticResource BaseTimerButtonStyle}">
         <Setter Property="Background" Value="{StaticResource ControlBtnColour}"/>
+    </Style>
+
+    <Style x:Key="CustomSlider" TargetType="Slider">
+        <Setter Property="Width" Value="135"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Slider">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <!-- Track -->
+                        <Border
+                        x:Name="TrackBackground"
+                        Width="135"
+                        Height="15"
+                        Background="#464646"
+                        CornerRadius="8"
+                        VerticalAlignment="Center"
+                        Grid.Column="1"/>
+                        <!-- PART_Track is required for Slider functionality -->
+                        <Track x:Name="PART_Track"
+                           Grid.Column="1"
+                           Maximum="{TemplateBinding Maximum}"
+                           Minimum="{TemplateBinding Minimum}"
+                           Value="{Binding Path=Value, RelativeSource={RelativeSource TemplatedParent}}"
+                           IsDirectionReversed="{TemplateBinding IsDirectionReversed}"
+                           Orientation="{TemplateBinding Orientation}">
+                            <Track.Thumb>
+                                <!-- Thumb -->
+                                <Thumb Width="15" Height="15"
+                                   BorderThickness="0"
+                                   BorderBrush="Transparent"
+                                   FocusVisualStyle="{x:Null}">
+                                    <Thumb.Template>
+                                        <ControlTemplate TargetType="Thumb">
+                                            <Ellipse Fill="#838383" Width="15" Height="15" StrokeThickness="0"/>
+                                        </ControlTemplate>
+                                    </Thumb.Template>
+                                </Thumb>
+                            </Track.Thumb>
+                        </Track>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="VolumeButton" TargetType="Button">
+        <Setter Property="Height" Value="20"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Margin" Value="10,0,10,0"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="ButtonBorder"
+                Background="{TemplateBinding Background}" 
+                CornerRadius="7"
+                BorderBrush="{TemplateBinding BorderBrush}" 
+                BorderThickness="{TemplateBinding BorderThickness}">
+                        <ContentPresenter HorizontalAlignment="Center" 
+                          VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.8"/>
+                        </Trigger>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.6"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
 </ResourceDictionary>

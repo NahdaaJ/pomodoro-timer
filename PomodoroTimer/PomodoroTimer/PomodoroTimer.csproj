@@ -12,9 +12,10 @@
     <None Remove="Assets\Fonts\Afacad.ttf" />
     <None Remove="Assets\Icons\pause.png" />
     <None Remove="Assets\Icons\play.png" />
-    <None Remove="Assets\Icons\stop-button2.png" />
     <None Remove="Assets\Icons\stop.png" />
     <None Remove="Assets\Icons\tomato.ico" />
+    <None Remove="Assets\Icons\volume-down.png" />
+    <None Remove="Assets\Icons\volume-up.png" />
     <None Remove="Assets\Sounds\sound1.wav" />
   </ItemGroup>
 
@@ -30,6 +31,8 @@
     <Resource Include="Assets\Icons\play.png" />
     <Resource Include="Assets\Icons\stop.png" />
     <Resource Include="Assets\Icons\tomato.ico" />
+    <Resource Include="Assets\Icons\volume-down.png" />
+	<Resource Include="Assets\Icons\volume-up.png" />
   </ItemGroup>
 
 </Project>
