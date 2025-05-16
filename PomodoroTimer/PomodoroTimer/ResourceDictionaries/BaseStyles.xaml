@@ -245,4 +245,14 @@
         </Setter>
     </Style>
 
+    <Style x:Key="SignatureText" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontFamily" Value="../Assets/Fonts/#Afacad" />
+        <Setter Property="Foreground" Value="{StaticResource ControlBtnColour}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="Cursor" Value="Hand" />
+    </Style>
+
 </ResourceDictionary>

@@ -1,5 +1,6 @@
 ﻿using PomodoroTimer.Models;
 using PomodoroTimer.Services;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -183,5 +184,14 @@ public partial class MainWindow : Window
     private void CloseWindow_Click(object sender, RoutedEventArgs e)
     {
         this.Close();
+    }
+
+    private void OpenGithub(object sender, RoutedEventArgs e)
+    {
+        Process.Start(new ProcessStartInfo
+        {
+            FileName = "https://github.com/nahdaaj",
+            UseShellExecute = true
+        });
     }
 }

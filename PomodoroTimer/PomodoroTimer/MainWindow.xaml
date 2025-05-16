@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Icon="/Assets/Icons/tomato.ico"
         Title="Pomodoro Timer" 
-        Height="520" Width="250"
+        Height="540" Width="250"
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent">
@@ -18,7 +18,8 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="50"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
             <StackPanel
                 Orientation="Horizontal"
@@ -136,6 +137,7 @@
                     <Image Source="/Assets/Icons/volume-up.png" />
                 </Button>
             </StackPanel>
+            <TextBlock x:Name="Signature" Text="Created by Nahdaa J" Grid.Row="5" Style="{StaticResource SignatureText}" MouseDown="OpenGithub"/>
         </Grid>
     </Border>
 </Window>
