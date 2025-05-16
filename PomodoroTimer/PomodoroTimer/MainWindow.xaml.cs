@@ -132,6 +132,7 @@ public partial class MainWindow : Window
             TimerDisplayBlock.Text = QuoteProvider.DefaultTimer;
             QuoteBlock.Text = QuoteProvider.DefaultString;
             _player.Stop();
+            _player.Close();
         }
     }
 
@@ -172,5 +173,15 @@ public partial class MainWindow : Window
             _player.Volume = newValue;
         }
 
+    }
+
+    private void MinimiseWindow_Click(object sender, RoutedEventArgs e)
+    {
+        this.WindowState = WindowState.Minimized;
+    }
+
+    private void CloseWindow_Click(object sender, RoutedEventArgs e)
+    {
+        this.Close();
     }
 }

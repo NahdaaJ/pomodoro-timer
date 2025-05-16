@@ -7,6 +7,43 @@
     <SolidColorBrush x:Key="ControlBtnColour" Color="#464646"/>
     <SolidColorBrush x:Key="BackgroundColour" Color="#E6171717"/>
 
+    <Style x:Key="WindowButton" TargetType="Button">
+        <Setter Property="Margin" Value="5,0,5,0"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="ButtonBorder"
+                Background="{TemplateBinding Background}" 
+                CornerRadius="7"
+                BorderBrush="{TemplateBinding BorderBrush}" 
+                BorderThickness="{TemplateBinding BorderThickness}">
+                        <ContentPresenter HorizontalAlignment="Center" 
+                          VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.8"/>
+                        </Trigger>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.6"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="CloseButton" TargetType="Button" BasedOn="{StaticResource WindowButton}">
+        <Setter Property="Height" Value="13"/>
+    </Style>
+
+    <Style x:Key="MinimiseButton" TargetType="Button" BasedOn="{StaticResource WindowButton}">
+        <Setter Property="Height" Value="15"/>
+    </Style>
+
     <Style x:Key="QuoteTextStyle" TargetType="TextBlock">
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="TextAlignment" Value="Center"/>
