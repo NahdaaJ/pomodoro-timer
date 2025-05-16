@@ -47,13 +47,13 @@
                         Grid.Row="1">
                 <TextBlock Text="Study Timers" Style="{StaticResource TimerHeaders}"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
-                    <Button Content="15:00" Style="{StaticResource TimerButtonStyle}"
+                    <Button Content="15:00" Style="{StaticResource StudyTimerButton}"
                             Click="StartTimerClick">
                         <Button.Tag>
                             <local1:ButtonData Duration="00:15:00" Type="Study"/>
                         </Button.Tag>
                     </Button>
-                    <Button Content="20:00" Style="{StaticResource TimerButtonStyle}"
+                    <Button Content="20:00" Style="{StaticResource StudyTimerButton}"
                             Click="StartTimerClick">
                         <Button.Tag>
                             <local1:ButtonData Duration="00:20:00" Type="Study"/>
@@ -61,13 +61,13 @@
                     </Button>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
-                    <Button Content="25:00" Style="{StaticResource TimerButtonStyle}"
+                    <Button Content="25:00" Style="{StaticResource StudyTimerButton}"
                             Click="StartTimerClick">
                         <Button.Tag>
                             <local1:ButtonData Duration="00:25:00" Type="Study"/>
                         </Button.Tag>
                     </Button>
-                    <Button Content="50:00" Style="{StaticResource TimerButtonStyle}"
+                    <Button Content="50:00" Style="{StaticResource StudyTimerButton}"
                         Click="StartTimerClick">
                         <Button.Tag>
                             <local1:ButtonData Duration="00:50:00" Type="Study"/>
@@ -82,13 +82,13 @@
                         Grid.Row="2">
                 <TextBlock Text="Break Timers" Style="{StaticResource TimerHeaders}"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
-                    <Button Content="05:00" Style="{StaticResource TimerButtonStyle}"
+                    <Button Content="05:00" Style="{StaticResource BreakTimerButton}"
                         Click="StartTimerClick">
                         <Button.Tag>
                             <local1:ButtonData Duration="00:05:00" Type="Break"/>
                         </Button.Tag>
                     </Button>
-                    <Button Content="10:00" Style="{StaticResource TimerButtonStyle}"
+                    <Button Content="10:00" Style="{StaticResource BreakTimerButton}"
                         Click="StartTimerClick">
                         <Button.Tag>
                             <local1:ButtonData Duration="00:10:00" Type="Break"/>
@@ -96,13 +96,13 @@
                     </Button>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
-                    <Button Content="30:00" Style="{StaticResource TimerButtonStyle}"
+                    <Button Content="30:00" Style="{StaticResource BreakTimerButton}"
                         Click="StartTimerClick">
                         <Button.Tag>
                             <local1:ButtonData Duration="00:30:00" Type="Break"/>
                         </Button.Tag>
                     </Button>
-                    <Button Content="1:00:00" Style="{StaticResource TimerButtonStyle}"
+                    <Button Content="1:00:00" Style="{StaticResource BreakTimerButton}"
                         Click="StartTimerClick">
                         <Button.Tag>
                             <local1:ButtonData Duration="01:00:00" Type="Break"/>

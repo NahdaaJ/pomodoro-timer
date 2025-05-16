@@ -74,8 +74,7 @@
         <Setter Property="FontFamily" Value="../Assets/Fonts/#Afacad"/>
     </Style>
 
-    <Style x:Key="TimerButtonStyle" TargetType="Button">
-        <Setter Property="Background" Value="{StaticResource AccentColour2}"/>
+    <Style x:Key="BaseTimerButtonStyle" TargetType="Button">
         <Setter Property="BorderBrush" Value="Transparent"/>
         <Setter Property="Foreground" Value="{StaticResource TextColour}"/>
         <Setter Property="FontSize" Value="18"/>
@@ -110,6 +109,14 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>        
+    </Style>
+
+    <Style x:Key="StudyTimerButton" TargetType="Button" BasedOn="{StaticResource BaseTimerButtonStyle}">
+        <Setter Property="Background" Value="{StaticResource AccentColour2}"/>
+    </Style>
+
+    <Style x:Key="BreakTimerButton" TargetType="Button" BasedOn="{StaticResource BaseTimerButtonStyle}">
+        <Setter Property="Background" Value="{StaticResource ControlBtnColour}"/>
     </Style>
 
 </ResourceDictionary>
