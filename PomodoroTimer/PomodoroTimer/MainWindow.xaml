@@ -115,11 +115,11 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Top"
                         Grid.Row="3">
-                <Button Style="{StaticResource VolumeButton}">
+                <Button x:Name="VolumeDownBtn" Style="{StaticResource VolumeButton}" Click="VolumeButtonClick">
                     <Image Source="/Assets/Icons/volume-down.png" />
                 </Button>
-                <Slider Style="{StaticResource CustomSlider}" ValueChanged="Slider_ValueChanged"/>
-                <Button Style="{StaticResource VolumeButton}">
+                <Slider x:Name="VolumeSlider" Style="{StaticResource CustomSlider}" ValueChanged="UpdateVolume"/>
+                <Button x:Name="VolumeUpBtn" Style="{StaticResource VolumeButton}" Click="VolumeButtonClick">
                     <Image Source="/Assets/Icons/volume-up.png" />
                 </Button>
             </StackPanel>

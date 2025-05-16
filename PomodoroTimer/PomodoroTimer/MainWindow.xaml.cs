@@ -1,9 +1,9 @@
 ﻿using PomodoroTimer.Models;
 using PomodoroTimer.Services;
-using System.Media;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using static PomodoroTimer.Services.QuoteProvider;
@@ -18,7 +18,7 @@ public partial class MainWindow : Window
     //private DispatcherTimer dispatchTimer;
     private TimerService? _activeTimerService;
     private string _currentTimerType = string.Empty;
-    private SoundPlayer _player;
+    private MediaPlayer _player = new MediaPlayer();
 
     public MainWindow()
     {
@@ -31,8 +31,8 @@ public partial class MainWindow : Window
                 this.DragMove();
             }
         };
-
-        _player = new SoundPlayer("./Assets/Sounds/sound1.wav");
+        VolumeSlider.Value = 0.3;
+        _player.Volume = VolumeSlider.Value;
     }
 
     private void StartTimerClick(object sender, RoutedEventArgs e)
@@ -144,11 +144,33 @@ public partial class MainWindow : Window
     {
         QuoteBlock.Text = QuoteProvider.TimerFinishedString;
         TimerDisplayBlock.Text = QuoteProvider.DefaultTimer;
+        _player.Open(new Uri("Assets/Sounds/sound1.wav", UriKind.Relative));
         _player.Play();
     }
 
-    private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+    private void UpdateVolume(object sender, RoutedPropertyChangedEventArgs<double> e)
     {
+        _player.Volume = VolumeSlider.Value;
+    }
+
+    private void VolumeButtonClick(object sender, RoutedEventArgs e)
+    {
+        if (sender is Button button)
+        {
+            double newValue = Math.Round(VolumeSlider.Value, 1);
+
+            if (button.Name == "VolumeUpBtn" && VolumeSlider.Value < 1)
+            {
+                newValue += 0.1;
+            }
+            else if (button.Name == "VolumeDownBtn" && VolumeSlider.Value >= 0)
+            {
+                newValue -= 0.1;
+            }
+
+            VolumeSlider.Value = newValue;
+            _player.Volume = newValue;
+        }
 
     }
 }
