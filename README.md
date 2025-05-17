@@ -7,6 +7,17 @@
 A simple pomodoro timer desktop app for study sessions! :) <br />
 Built with WPF and .NET 8.
 
+## Table of Contents
+- [Appearance](#appearance)
+- [Features](#features)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Build & Run](#build--run)
+- [Project Structure](#project-structure)
+- [Customisation](#customisation)
+- [What I've Learnt During This Project](#what-ive-learnt-during-this-project)
+- [License](#license)
+
 ## Appearance
 To design the appearance of the app, I learn how to use the basic functions of Figma. Below is the most up to date design of the app!
 <div align="center">
@@ -46,23 +57,22 @@ To design the appearance of the app, I learn how to use the basic functions of F
   - `Services/` - Timer and quote logic
   - `Assets/` - Icons, fonts, and sound files
 
-## Customization
+## Customisation
 
 - **Quotes**- Edit `Services/QuoteProvider.cs` to add or change motivational quotes.
-
 - **Sounds** - Replace `Assets/Sounds/sound1.wav` with your own notification sound.
-
-- **Icons & Colors** - Update icons in `Assets/Icons/` and styles in your XAML resources.
+- **Icons & Colours** - Update icons in `Assets/Icons/` and colours in the BaseStyles resource dictionary.
 
 ## What I've Learnt During This Project
-- Learnt what events are and how to utilise them in my app
+- What events are and how to utilise them in my app
 - How to use WPF to create apps, including UI/UX and code behind
 - Implementing MVVM patterns in C#
 - Creating and applying custom styles and templates in XAML
 - Managing media playback and volume in .NET
 - Handling resource dictionaries and theming
 - Writing clean, maintainable code
-- How to use the DispatcherTimer to create timers and other time related logic.
+- How to use the DispatcherTimer to create timers and other time related logic
+- How to use Inno install to create a simple installer for my app
 
 ## License
 
@@ -71,14 +81,13 @@ For other uses, please contact the author.
 
 ### Created by **Nahdaa Jawed**
 <div>
-<a href="mailto:nahdaajawed@gmail.com" target="_blank">
-  <img src="ReadmeIcons\email.png" height="45"/>
-</a>
-<a href="https://www.linkedin.com/in/nahdaa-jawed/" target="_blank">
-  <img src="ReadmeIcons\linkedin.png" height="45" style="margin-right:10px;margin-left:10px"/>
-</a>
-<a href="https://github.com/NahdaaJ" target="_blank">
-  <img src="ReadmeIcons\github.png" height="45"/>
-</a>
-  
+  <a href="mailto:nahdaajawed@gmail.com" target="_blank">
+    <img src="ReadmeIcons\email.png" height="45"/>
+  </a>
+  <a href="https://www.linkedin.com/in/nahdaa-jawed/" target="_blank">
+    <img src="ReadmeIcons\linkedin.png" height="45" style="margin-right:10px;margin-left:10px"/>
+  </a>
+  <a href="https://github.com/NahdaaJ" target="_blank">
+    <img src="ReadmeIcons\github.png" height="45"/>
+  </a>
 </div>
