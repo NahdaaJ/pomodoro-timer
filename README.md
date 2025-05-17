@@ -7,6 +7,12 @@
 A simple pomodoro timer desktop app for study sessions! :) <br />
 Built with WPF and .NET 8.
 
+## Appearance
+To design the appearance of the app, I learn how to use the basic functions of Figma. Below is the most up to date design of the app!
+<div align="center">
+  <img src="ReadmeIcons\app-image.png" height="400"/>
+</div>
+
 ## Features
 - **Preset Study and Break Timers** - Quick start buttons for common study (15, 20, 25, 50 min) and break (5, 10, 30, 60 min) intervals.
 - **Motivational Quotes** - Displays a random motivational quote for study or break sessions.
