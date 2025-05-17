@@ -1,5 +1,6 @@
 ﻿using PomodoroTimer.Models;
 using PomodoroTimer.Services;
+using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,39 +12,33 @@ using static PomodoroTimer.Services.QuoteProvider;
 
 namespace PomodoroTimer;
 
-/// <summary>
-/// Interaction logic for MainWindow.xaml
-/// </summary>
 public partial class MainWindow : Window
 {
-    //private DispatcherTimer dispatchTimer;
     private TimerService? _activeTimerService;
     private string _currentTimerType = string.Empty;
-    private MediaPlayer _player = new MediaPlayer();
+    private readonly MediaPlayer _player = new();
 
     public MainWindow()
     {
         InitializeComponent();
 
-        this.MouseLeftButtonDown += (sender, e) =>
+        this.MouseLeftButtonDown += (_, e) =>
         {
             if (e.ButtonState == MouseButtonState.Pressed)
-            {
                 this.DragMove();
-            }
         };
+
         VolumeSlider.Value = 0.3;
         _player.Volume = VolumeSlider.Value;
     }
 
     private void StartTimerClick(object sender, RoutedEventArgs e)
     {
-        if (sender is Button button && button.Tag is ButtonData buttonData)
+        if (sender is Button { Tag: ButtonData buttonData })
         {
             StopResetTimer();
             _currentTimerType = buttonData.Type;
             CreateNewTimer(buttonData.Duration);
-           
         }
         else
         {
@@ -53,33 +48,29 @@ public partial class MainWindow : Window
 
     private void StopTimerClick(object sender, RoutedEventArgs e)
     {
-        if (sender is Button button && button.Name == "StopButton")
-        {
+        if (sender is Button { Name: "StopButton" })
             StopResetTimer();
-        }
         else
-        {
             MessageBox.Show("Incorrect stop button data.");
-        }
     }
 
     private void PausePlayTimerClick(object sender, RoutedEventArgs e)
     {
-        if (sender is Button button && button.Name == "PauseButton" && _activeTimerService != null)
+        if (sender is Button { Name: "PauseButton" } && _activeTimerService != null)
         {
-            if (_activeTimerService.isPaused == true)
+            if (_activeTimerService.isPaused)
             {
                 _activeTimerService.ResumeTimer();
                 QuoteBlock.Text = _currentTimerType == "Study"
                     ? QuoteProvider.GetQuote(QuoteType.Study)
                     : QuoteProvider.GetQuote(QuoteType.Break);
-                PauseButtonImage.Source = new BitmapImage(new Uri("/Assets/Icons/pause.png", UriKind.Relative));
+                SetPauseButtonImage("pause.png");
             }
-            else
+            else if (!_activeTimerService.isPaused)
             {
                 _activeTimerService.PauseTimer();
                 QuoteBlock.Text = QuoteProvider.PauseTimer;
-                PauseButtonImage.Source = new BitmapImage(new Uri("/Assets/Icons/play.png", UriKind.Relative));
+                SetPauseButtonImage("play.png");
             }
         }
     }
@@ -90,57 +81,56 @@ public partial class MainWindow : Window
         _activeTimerService.TimerTick += UpdateTimerDisplayBlock;
         _activeTimerService.TimerFinished += TimerFinished;
 
+        switch (_currentTimerType)
+        {
+            case "Study":
+                SetupQuote(UpdateStudyQuote, 1);
+                break;
 
-        // cannot use functions with parameters if i want to unsubscribe later
-        if (_currentTimerType == "Study")
-        {
-            UpdateStudyQuote();
-            _activeTimerService.QuoteUpdate += UpdateStudyQuote;
-            TimerDisplayBlock.Opacity = 1;
+            case "Break":
+                SetupQuote(UpdateBreakQuote, 0.3);
+                break;
 
+            default:
+                throw new ArgumentException($"Unsupported timer type: {_currentTimerType}");
         }
-        else if (_currentTimerType == "Break")
-        {
-            UpdateBreakQuote();
-            _activeTimerService.QuoteUpdate += UpdateBreakQuote;
-            TimerDisplayBlock.Opacity = 0.3;
-        }
-        else
-        {
-            throw new ArgumentException($"Unsupported timer type: {_currentTimerType}");
-        }
-            _activeTimerService.StartTimer(duration);
+
+        _activeTimerService.StartTimer(duration);
     }
-    private void UpdateStudyQuote()
+
+    private void SetupQuote(Action updateAction, double opacity)
     {
+        updateAction();
+        _activeTimerService!.QuoteUpdate += updateAction;
+        TimerDisplayBlock.Opacity = opacity;
+    }
+
+    private void UpdateStudyQuote() =>
         QuoteBlock.Text = QuoteProvider.GetQuote(QuoteType.Study);
-    }
 
-    private void UpdateBreakQuote()
-    {
+    private void UpdateBreakQuote() =>
         QuoteBlock.Text = QuoteProvider.GetQuote(QuoteType.Break);
-    }
 
     private void StopResetTimer()
     {
-        if (_activeTimerService != null)
-        {
-            _activeTimerService.StopTimer();
-            _activeTimerService.TimerTick -= UpdateTimerDisplayBlock;
-            _activeTimerService.TimerFinished -= TimerFinished;
-            _activeTimerService.QuoteUpdate -= UpdateStudyQuote;
-            _activeTimerService.QuoteUpdate -= UpdateBreakQuote;
-            TimerDisplayBlock.Text = QuoteProvider.DefaultTimer;
-            QuoteBlock.Text = QuoteProvider.DefaultString;
-            _player.Stop();
-            _player.Close();
-        }
+        if (_activeTimerService == null) return;
+
+        _activeTimerService.StopTimer();
+        _activeTimerService.TimerTick -= UpdateTimerDisplayBlock;
+        _activeTimerService.TimerFinished -= TimerFinished;
+        _activeTimerService.QuoteUpdate -= UpdateStudyQuote;
+        _activeTimerService.QuoteUpdate -= UpdateBreakQuote;
+        _activeTimerService = null;
+
+        TimerDisplayBlock.Text = QuoteProvider.DefaultTimer;
+        QuoteBlock.Text = QuoteProvider.DefaultString;
+
+        _player.Stop();
+        _player.Close();
     }
 
-    private void UpdateTimerDisplayBlock(TimeSpan remaining)
-    {
+    private void UpdateTimerDisplayBlock(TimeSpan remaining) =>
         TimerDisplayBlock.Text = remaining.ToString(@"hh\:mm\:ss");
-    }
 
     private void TimerFinished()
     {
@@ -150,41 +140,36 @@ public partial class MainWindow : Window
         _player.Play();
     }
 
-    private void UpdateVolume(object sender, RoutedPropertyChangedEventArgs<double> e)
-    {
+    private void UpdateVolume(object sender, RoutedPropertyChangedEventArgs<double> e) =>
         _player.Volume = VolumeSlider.Value;
-    }
 
     private void VolumeButtonClick(object sender, RoutedEventArgs e)
     {
-        if (sender is Button button)
+        if (sender is not Button button) return;
+
+        double newValue = Math.Round(VolumeSlider.Value, 1);
+
+        newValue += button.Name switch
         {
-            double newValue = Math.Round(VolumeSlider.Value, 1);
+            "VolumeUpBtn" when newValue < 1 => 0.1,
+            "VolumeDownBtn" when newValue > 0 => -0.1,
+            _ => 0
+        };
 
-            if (button.Name == "VolumeUpBtn" && VolumeSlider.Value < 1)
-            {
-                newValue += 0.1;
-            }
-            else if (button.Name == "VolumeDownBtn" && VolumeSlider.Value >= 0)
-            {
-                newValue -= 0.1;
-            }
-
-            VolumeSlider.Value = newValue;
-            _player.Volume = newValue;
-        }
-
+        VolumeSlider.Value = newValue;
+        _player.Volume = newValue;
     }
 
-    private void MinimiseWindow_Click(object sender, RoutedEventArgs e)
+    private void SetPauseButtonImage(string iconFileName)
     {
+        PauseButtonImage.Source = new BitmapImage(new Uri($"/Assets/Icons/{iconFileName}", UriKind.Relative));
+    }
+
+    private void MinimiseWindow_Click(object sender, RoutedEventArgs e) =>
         this.WindowState = WindowState.Minimized;
-    }
 
-    private void CloseWindow_Click(object sender, RoutedEventArgs e)
-    {
+    private void CloseWindow_Click(object sender, RoutedEventArgs e) =>
         this.Close();
-    }
 
     private void OpenGithub(object sender, RoutedEventArgs e)
     {
