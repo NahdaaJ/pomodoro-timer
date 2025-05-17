@@ -1,5 +1,11 @@
 # Pomodoro Timer 🍅
-A simple pomodoro timer desktop app for study sessions! :)<br />Built with WPF and .NET 8.
+<div align="centre">
+  <a href="https://github.com/NahdaaJ/pomodoro-timer/releases/download/v1.0.0/PomodoroTimer_Installer.exe">
+    <img src="https://img.shields.io/badge/Download%20for%20Windows-.exe-C08585?style=for-the-badge" alt="Download Badge"/>
+  </a>
+</div>
+A simple pomodoro timer desktop app for study sessions! :) <br />
+Built with WPF and .NET 8.
 
 ## Features
 - **Preset Study and Break Timers** - Quick start buttons for common study (15, 20, 25, 50 min) and break (5, 10, 30, 60 min) intervals.
