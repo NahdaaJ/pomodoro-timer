@@ -1,18 +1,19 @@
-﻿using System.Windows.Threading;
+﻿using System;
+using System.Windows.Threading;
 
 namespace PomodoroTimer.Services
 {
     public class TimerService
     {
-        private DispatcherTimer _timer; // ticks every second
-        private TimeSpan _remaining; // keeps track of how much time is left
-        public bool isPaused = false; // keeps track of whether the timer is paused
-        private int _secondsSinceLastQuote = 0; // keeps track of how many seconds have passed since the last quote update
+        private readonly DispatcherTimer _timer;
+        private TimeSpan _remaining;
+        private int _secondsSinceLastQuote;
 
-        public event Action? TimerFinished; // runs when timer ends
-        public event Action<TimeSpan>? TimerTick; // runs every second to update the remaining time
-        public event Action? QuoteUpdate; // runs every 5 minutes to update the quote
+        public bool IsPaused { get; private set; }
 
+        public event Action? TimerFinished;
+        public event Action<TimeSpan>? TimerTick;
+        public event Action? QuoteUpdate;
 
         public TimerService(DispatcherTimer timer)
         {
@@ -38,20 +39,20 @@ namespace PomodoroTimer.Services
             if (_remaining <= TimeSpan.Zero)
             {
                 _timer.Stop();
-                TimerFinished?.Invoke(); // Raise the event
+                TimerFinished?.Invoke();
             }
             else
             {
-                TimerTick?.Invoke(_remaining); // Notify remaining time
+                TimerTick?.Invoke(_remaining);
             }
 
             if (_secondsSinceLastQuote >= 300)
             {
-                QuoteUpdate?.Invoke(); // Notify to update quote
-                _secondsSinceLastQuote = 0; // Reset the counter
+                QuoteUpdate?.Invoke();
+                _secondsSinceLastQuote = 0;
             }
         }
-        
+
         public void StopTimer()
         {
             _timer.Stop();
@@ -61,15 +62,14 @@ namespace PomodoroTimer.Services
         public void PauseTimer()
         {
             _timer.Stop();
-            isPaused = true;
+            IsPaused = true;
         }
 
         public void ResumeTimer()
         {
             _timer.Start();
             TimerTick?.Invoke(_remaining);
-            isPaused = false;
+            IsPaused = false;
         }
-
     }
 }

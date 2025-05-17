@@ -58,7 +58,7 @@ public partial class MainWindow : Window
     {
         if (sender is Button { Name: "PauseButton" } && _activeTimerService != null)
         {
-            if (_activeTimerService.isPaused)
+            if (_activeTimerService.IsPaused)
             {
                 _activeTimerService.ResumeTimer();
                 QuoteBlock.Text = _currentTimerType == "Study"
@@ -66,7 +66,7 @@ public partial class MainWindow : Window
                     : QuoteProvider.GetQuote(QuoteType.Break);
                 SetPauseButtonImage("pause.png");
             }
-            else if (!_activeTimerService.isPaused)
+            else if (!_activeTimerService.IsPaused)
             {
                 _activeTimerService.PauseTimer();
                 QuoteBlock.Text = QuoteProvider.PauseTimer;
@@ -113,6 +113,9 @@ public partial class MainWindow : Window
 
     private void StopResetTimer()
     {
+        _player.Stop();
+        _player.Close();
+
         if (_activeTimerService == null) return;
 
         _activeTimerService.StopTimer();
@@ -124,9 +127,6 @@ public partial class MainWindow : Window
 
         TimerDisplayBlock.Text = QuoteProvider.DefaultTimer;
         QuoteBlock.Text = QuoteProvider.DefaultString;
-
-        _player.Stop();
-        _player.Close();
     }
 
     private void UpdateTimerDisplayBlock(TimeSpan remaining) =>
@@ -136,8 +136,10 @@ public partial class MainWindow : Window
     {
         QuoteBlock.Text = QuoteProvider.TimerFinishedString;
         TimerDisplayBlock.Text = QuoteProvider.DefaultTimer;
+        StopResetTimer();
         _player.Open(new Uri("Assets/Sounds/sound1.wav", UriKind.Relative));
         _player.Play();
+        
     }
 
     private void UpdateVolume(object sender, RoutedPropertyChangedEventArgs<double> e) =>
