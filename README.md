@@ -57,8 +57,6 @@ A simple pomodoro timer desktop app for study sessions! :)<br />Built with WPF a
 This project is provided for personal and educational use.  
 For other uses, please contact the author.
 
----
-
 ### Created by **Nahdaa Jawed**
 <div>
 <a href="mailto:nahdaajawed@gmail.com" target="_blank">
