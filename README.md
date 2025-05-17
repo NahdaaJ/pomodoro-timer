@@ -66,7 +66,6 @@ To design the appearance of the app, I learn how to use the basic functions of F
 ## What I've Learnt During This Project
 - What events are and how to utilise them in my app
 - How to use WPF to create apps, including UI/UX and code behind
-- Implementing MVVM patterns in C#
 - Creating and applying custom styles and templates in XAML
 - Managing media playback and volume in .NET
 - Handling resource dictionaries and theming
